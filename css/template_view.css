@@ -1,0 +1,71 @@
+*
+{
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+body
+{
+    background: #e8e8e8;
+}
+
+.header
+{
+    height: 47px;
+    background: #ffbb00;
+}
+
+.header span
+{
+    font-size: 20px;
+}
+
+#menu-button
+{
+    height : 100%;
+    width: 50px;
+    padding: 12px 30px;
+}
+
+nav
+{
+    display:none;
+    position: absolute;
+    width: 250px;
+    background: white;
+    height: 100%;
+}
+
+
+nav li:hover
+{
+    background: #e8e8e8;
+}
+
+#content ul
+{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#content ul li
+{
+    width: 300px;
+    margin: 45px;
+    float: left;
+}
+
+#note-creator
+{
+    text-align: center;
+}
+
+#note-creator input
+{
+    display:block;
+    margin: 15px auto;
+}
+
+
