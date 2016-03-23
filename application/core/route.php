@@ -8,10 +8,13 @@
 
 class Route
 {
-    static function start(){
+    static function start()
+    {
         $controller_name = 'Controller_Main';
         if(!empty($_GET['page']))
             $controller_name = 'Controller_'.$_GET['page'];
+        if(!isset($_SESSION['email']) && $controller_name != 'Controller_register')
+            $controller_name  = 'Controller_Login';
         $controller_file = strtolower($controller_name.'.php');
         $controller_path = 'application/controllers/'.$controller_file;
         if(file_exists($controller_path))

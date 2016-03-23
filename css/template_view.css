@@ -1,19 +1,45 @@
-*
+*{
+    padding:0;
+    margin:0;
+    border:0;
+    cursor:default;
+    box-sizing: border-box;
+}
+:focus{
+    outline: none;
+    border: none;
+}
+html
 {
-    padding: 0;
-    margin: 0;
-    border: 0;
+    height: 100%;
+}
+
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* IE/Edge */
+    user-select: none;           /* non-prefixed version, currently
+                                  not supported by any browser */
 }
 
 body
 {
     background: #e8e8e8;
+    height: 93%;
+}
+
+.b
+{
+    font-weight: bold;
+
 }
 
 .header
 {
     height: 47px;
-    background: #ffbb00;
+    background: #337AB7;
 }
 
 .header span
@@ -57,15 +83,155 @@ nav li:hover
     float: left;
 }
 
-#note-creator
+
+#newnote
 {
+    position: relative;
+    margin: 32px auto 16px auto;
+    width: 600px;
+}
+#notename
+{
+    position: relative;
+    width: 100%;
+    min-height: 38px;
+    display: none;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+#plh1
+{
+    top: 0;
+    left: 0;
+    width: 100%;
+    position: absolute;
+    color: #757575;
+    height: 38px;
+    padding: 15px 15px 0 15px;
+    font-size: 17px;
+    line-height: 23px;
+    font-weight: bold;
+}
+#notenamewr
+{
+    position: relative;
+    width: 100%;
+    min-height: 38px;
+    padding: 15px 15px 0 15px;
+    font-size: 17px;
+    line-height: 23px;
+    font-weight: bold;
+    overflow: visible;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    -webkit-user-modify: read-write;
+    -webkit-line-break: after-white-space;
+}
+#notetext
+{
+    position: relative;
+    width: 100%;
+    min-height: 46px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+#plh2
+{
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    color: #757575;
+    height: 46px;
+    padding: 15px 15px 12px 15px;
+    font-size: 15px;
+    line-height: 19px;;
+}
+#notetextwr
+{
+    position:relative;
+    min-height:46px;
+    padding:15px 15px 12px 15px;
+    font-size:15px;
+    width:100%;
+    line-height:19px;
+    overflow:visible;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    -webkit-user-modify: read-write;
+    -webkit-line-break: after-white-space;
+}
+#notemenu
+{
+    position:relative;
+    display:none;
+    width:100%;
+    height:45px;
+}
+.notebar
+{
+    float:left;
+    font-size:12px;
+    line-height:33px;
+    height:45px;
+    width:45px;
+    text-align:center;
+    color:#555555;
+}
+#done
+{
+    float:right;
+    margin-right: 10px;
+}
+
+#notetextwr:hover, #notenamewr:hover{
+    cursor:text;
+}
+
+.signgroup
+{
+    padding: 30px;
     text-align: center;
+    width: 392px;
+    margin: 150px auto;
+    box-shadow: 0px 1px 2px 1px;
+    box-sizing: border-box;
 }
 
-#note-creator input
+#register
 {
-    display:block;
-    margin: 15px auto;
+    height: 424px;
+}
+
+.signgroup div
+{
+    margin: 20px auto 0;
+}
+
+.signbutton
+{
+    margin-top: 15px;
+}
+
+#login
+{
+    margin-top: 150px;
+    height: 400px;
 }
 
 
+.invisible
+{
+    visibility: hidden;
+}
+
+.alert
+{
+    margin: 0;
+    height: 40px;
+}
+
+#login div
+{
+    margin: 40px auto;
+}
