@@ -9,6 +9,8 @@ class View
 {
     public function generate($content_view, $template_view, $data = null)
     {
+        $json = json_encode($data);
+        echo "<script> present =".$json."</script>";
         include 'application/views/'.$template_view;
     }
 }

@@ -4,6 +4,7 @@
     border:0;
     cursor:default;
     box-sizing: border-box;
+    font-family: 'Roboto','Droid Sans',arial,sans-serif;
 }
 :focus{
     outline: none;
@@ -234,4 +235,10 @@ nav li:hover
 #login div
 {
     margin: 40px auto;
+}
+
+.notelabel
+{
+    font-weight: 600;
+    font-size: 17px;
 }

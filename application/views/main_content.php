@@ -11,29 +11,9 @@
             </div>
         </div>
 
+
         <ul class="list-group noselect" id="notes">
-            <li class="panel panel-default">
-                <div class="panel-body">
-                Azazazaza
-                </div>
-            </li>
-            <li class="panel panel-default">
-                <div class="panel-body">
-            Azazazaza
-                </div>
-            </li>
-            <li class="panel panel-default">
-                <div class="panel-body">
-            Azazazaza
-                </div>
-            </li>
-            <li class="panel panel-default">
-                <div class="panel-body">
-            Azazazaza
-                </div>
-            </li>
         </ul>
 
 </div>
 <script src="/js/main.js"></script>
-<h1><?php echo $_SESSION['email'] ?></h1>

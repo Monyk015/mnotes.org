@@ -44,7 +44,6 @@ $(document).ready(function()
         else $("#plh1").show();
     });
 
-})
 
 $("#signoutbutton").click(
     function(){
@@ -57,3 +56,54 @@ $("#signoutbutton").click(
                 alert("signout error");
         })}
 );
+
+
+for(var i = 0; i < present.length; i++)
+{
+    displayNote(present[i]);
+}
+
+    $("#done").click(function()
+    {
+        if(present[present.length - 1] != undefined)
+            var id = +present[present.length - 1]['id'] + 1;
+        else
+            var id = 1;
+
+        var note = {
+            'label' : $("#notenamewr").text(),
+            'text' : $("#notetextwr").text(),
+            'id' :  id
+        };
+        addNote(note);
+    }
+    )
+})
+
+function addNote(note: Object)
+{
+    displayNote(note);
+    present.push(note);
+    $.post("/?ajax=addNote", note, function(data)
+    {
+        if(data == "Fine")
+            return;
+        else
+            alert("Error adding new note");
+    })
+}
+
+function displayNote(note: Object)
+{
+    var id = note['id'];
+    $("#notes").append('<li class="panel panel-default" id = "' + id + '"> <div class="panel-body"></div> </li>');
+
+    $("#" + id + " div").text(note["text"]);
+    if(note['label'] != '')
+    {
+        $("#" + id + " div").prepend('<div class="notelabel">' + note['label'] + '</div>' );
+    }
+    var l = $('#'+id + ".panel-body").text().length;
+    $('#'+id + ".panel-body").css("font-weight", l > 24? 300 : l > 17 ? 500 : 300);
+
+}

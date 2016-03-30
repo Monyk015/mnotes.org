@@ -18,16 +18,12 @@ class Model
 
     }
 
-    public function getData()
-    {
-
-    }
-
     public function newUser($email, $password)
     {
         $userTableResult = $this->mysqli->query("INSERT INTO `users` (`email`,`password`) VALUES('$email','$password')") ;
         $newTableResult = $this->mysqli->query("CREATE TABLE `$email` (
                     id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+                    label TEXT,
                     text TEXT NOT NULL
                   )");
         if(  $userTableResult &&  $newTableResult)
@@ -52,4 +48,20 @@ class Model
             return "Nope";
     }
 
+    public function getNotes($email)
+    {
+        $res = $this->mysqli->query("SELECT `id`, `text`, `label` FROM `$email`");
+        $ret = [];
+        while($row = $res->fetch_assoc())
+            $ret[] = $row;
+        return $ret;
+    }
+
+    public function addNote($email, $id, $label = null, $text)
+    {
+        if($this->mysqli->query("INSERT INTO `$email` (`id`,`label`,`text`) VALUES ('$id','$label','$text')"))
+            return "Fine";
+        else
+            return "Shit";
+    }
 }

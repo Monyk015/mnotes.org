@@ -14,6 +14,9 @@ class Controller_Main extends Controller
         {
             switch($_GET['ajax'])
             {
+                case 'addNote':
+                     echo $this->model->addNote($_SESSION['email'],$_POST['id'],$_POST['label'],$_POST['text']);
+                    break;
                 case 'signOut':
                     $this->finishSession();
                     break;
@@ -22,7 +25,10 @@ class Controller_Main extends Controller
             }
         }
         else
-        $this->view->generate('main_content.php','template_view.php');
+        {
+            $data = $this->model->getNotes("monyashadow@gmail.com");
+            $this->view->generate('main_content.php', 'template_view.php', $data);
+        }
     }
 
     function finishSession()
