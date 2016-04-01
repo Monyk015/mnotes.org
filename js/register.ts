@@ -5,7 +5,7 @@ $("#emailField").keyup
 (
     function()
     {
-        $.get("index.php?page=register&ajax=isEmailFine&email=" + $("#emailField").val(),function(data:string)
+        $.get("/register/isEmailFine/?email=" + $("#emailField").val(),function(data:string)
         {
             if(data == "Fine")
             {
@@ -29,7 +29,7 @@ $("#passwordField").keyup
 (
     function()
     {
-        $.get("index.php?page=register&ajax=isPasswordFine&password=" + $("#passwordField").val(),function(data:string)
+        $.get("/register/isPasswordFine/?password=" + $("#passwordField").val(),function(data:string)
         {
             if(data == "Fine")
             {
@@ -53,7 +53,7 @@ $("#passwordConfirmationField").keyup
 (
     function()
     {
-        $.get("index.php?page=register&ajax=isPasswordConfirmed&password=" + $("#passwordField").val() + "&passwordConfirmation=" +
+        $.get("/register/isPasswordConfirmed/?password=" + $("#passwordField").val() + "&passwordConfirmation=" +
             $("#passwordConfirmationField").val(), function(data:string)
         {
             if(data == "Fine")
@@ -79,7 +79,7 @@ $("#signupbutton").click(function()
     if( $("#passwordConfirmationSuccess").text() == "Fine" &&   $("#passwordSuccess").text() == "Fine"
     &&   $("#emailSuccess").text() == "Fine")
     {
-        $.post("index.php?page=register&ajax=newUser",
+        $.post("/register/newUser",
             {
                 email: $("#emailField").val(),
                 password: $("#passwordField").val()
@@ -87,7 +87,7 @@ $("#signupbutton").click(function()
             function(data)
             {
                 if(data == "Fine")
-                    window.location.replace("/?page=login");
+                    window.location.replace("/login");
                 else
                     alert("Registration error");
             }

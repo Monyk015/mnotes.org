@@ -4,7 +4,7 @@
 
 $("#signinbutton").click(function()
 {
-    $.post("index.php?page=login&ajax=isAuthorizationCorrect",
+    $.post("login/isAuthorizationCorrect",
     {
         email: $("#emailField").val(),
         password: $("#passwordField").val()
@@ -12,7 +12,7 @@ $("#signinbutton").click(function()
         {
             if(data == "Fine")
             {
-                window.location.replace("/?page=main");
+                window.location.replace("/main");
             }
             else
                 alert("Authorization error");

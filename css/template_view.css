@@ -80,7 +80,7 @@ nav li:hover
 #content ul li
 {
     width: 300px;
-    margin: 45px;
+    margin: 20px;
     float: left;
 }
 
@@ -241,4 +241,11 @@ nav li:hover
 {
     font-weight: 600;
     font-size: 17px;
+    margin: 15px 15px 0;
+}
+
+.noteIcons
+{
+    margin: 5px;
+    float:right;
 }

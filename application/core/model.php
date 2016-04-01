@@ -18,7 +18,7 @@ class Model
 
     }
 
-    public function newUser($email, $password)
+    function newUser($email, $password)
     {
         $userTableResult = $this->mysqli->query("INSERT INTO `users` (`email`,`password`) VALUES('$email','$password')") ;
         $newTableResult = $this->mysqli->query("CREATE TABLE `$email` (
@@ -30,7 +30,7 @@ class Model
             return "Fine";
     }
 
-    public function isEmailTaken($email)
+    function isEmailTaken($email)
     {
         $res = $this->mysqli->query("SELECT * FROM `users` WHERE `email` = '$email'");
         if($res->num_rows > 0)
@@ -39,7 +39,7 @@ class Model
             return "Free";
     }
 
-    public function isAuthorizationCorrect($email,$password)
+    function isAuthorizationCorrect($email,$password)
     {
         $res = mysqli_fetch_array($this->mysqli->query("SELECT `password` FROM `users` WHERE `email` = '$email'"));
         if($res[0] == $password && $password != "")
@@ -48,7 +48,7 @@ class Model
             return "Nope";
     }
 
-    public function getNotes($email)
+    function getNotes($email)
     {
         $res = $this->mysqli->query("SELECT `id`, `text`, `label` FROM `$email`");
         $ret = [];
@@ -57,11 +57,21 @@ class Model
         return $ret;
     }
 
-    public function addNote($email, $id, $label = null, $text)
+    function addNote($email, $id, $label = null, $text)
     {
         if($this->mysqli->query("INSERT INTO `$email` (`id`,`label`,`text`) VALUES ('$id','$label','$text')"))
             return "Fine";
         else
             return "Shit";
     }
+
+    function removeNotes($ids, $email)
+    {
+        $res = "Fine";
+        foreach($ids as $i)
+            if(!$this->mysqli->query("DELETE FROM `$email` WHERE `id` = '$i'"))
+                $res = "Shit";
+        return $res;
+    }
+
 }

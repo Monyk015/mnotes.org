@@ -10,57 +10,41 @@ class Controller_Register extends Controller
 {
     function action_index()
     {
-        if(isset($_GET['ajax']))
-        {
-            switch($_GET['ajax'])
-            {
-                case 'isEmailFine':
-                    $this->isEmailFine($_GET['email']);
-                    break;
-                case 'isPasswordFine':
-                    $this->isPasswordFine($_GET['password']);
-                    break;
-                case 'isPasswordConfirmed':
-                    $this->isPasswordConfirmed($_GET['password'],$_GET['passwordConfirmation']);
-                    break;
-                case 'newUser':
-                    echo $this->model->newUser($_POST['email'],$_POST['password']);
-                    break;
-                default:
-                    echo 'Wrong AJAX request';
-            }
-        }
-        else
         $this->view->generate('register_content.php','template_view.php');
     }
 
-    function isEmailFine($email)
+    function action_isEmailFine()
     {
-        if($this->model->isEmailTaken($email) == "Taken")
+        if($this->model->isEmailTaken($_GET['email']) == "Taken")
         {
             echo "Taken";
             return;
         }
-        if(preg_match("/^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$/",$email) == 1)
+        if(preg_match("/^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$/",$_GET['email']) == 1)
             echo "Fine";
         else
             echo "Nope";
 
     }
 
-    function isPasswordFine($password)
+    function action_isPasswordFine()
     {
-        if(preg_match("/(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[a-zа-я]).*$/",$password) == 1)
+        if(preg_match("/(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[a-zа-я]).*$/",$_GET['password']) == 1)
             echo "Fine";
         else
             echo "Nope";
     }
 
-    function isPasswordConfirmed($password, $passwordConfirmation)
+    function action_isPasswordConfirmed()
     {
-        if($password == $passwordConfirmation)
+        if($_GET['password'] == $_GET['passwordConfirmation'])
             echo "Fine";
         else
             echo "Nope";
+    }
+
+    function action_newUser()
+    {
+        echo $this->model->newUser($_POST['email'],$_POST['password']);
     }
 }

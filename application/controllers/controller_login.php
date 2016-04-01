@@ -10,25 +10,18 @@ class Controller_Login extends Controller
 {
     function action_index()
     {
-        if(isset($_GET['ajax']))
+
+        $this->view->generate('login_content.php', 'template_view.php');
+
+    }
+
+    function action_isAuthorizationCorrect()
+    {
+        $res = $this->model->isAuthorizationCorrect($_POST['email'],$_POST['password']);
+        echo $res;
+        if($res == "Fine")
         {
-            switch($_GET['ajax'])
-            {
-                case 'isAuthorizationCorrect':
-                    $res = $this->model->isAuthorizationCorrect($_POST['email'],$_POST['password']);
-                    echo $res;
-                    if($res == "Fine")
-                    {
-                        $_SESSION['email'] = $_POST['email'];
-                    }
-                    break;
-                default:
-                    echo 'Wrong AJAX request';
-            }
-        }
-        else
-        {
-            $this->view->generate('login_content.php', 'template_view.php');
+            $_SESSION['email'] = $_POST['email'];
         }
     }
 }

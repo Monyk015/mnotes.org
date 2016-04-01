@@ -14,6 +14,6 @@
 
         <ul class="list-group noselect" id="notes">
         </ul>
-
+    
 </div>
 <script src="/js/main.js"></script>
