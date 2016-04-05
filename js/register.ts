@@ -1,6 +1,9 @@
 /**
  * Created by Monyk on 21.03.2016.
  */
+
+/// <reference path="jquery.d.ts"/>
+
 $("#emailField").keyup
 (
     function()
@@ -9,17 +12,17 @@ $("#emailField").keyup
         {
             if(data == "Fine")
             {
-                $("#emailSuccess").removeClass("invisible");
-                $("#emailSuccess").text("Fine");
-                $("#emailSuccess").removeClass("alert-danger");
-                $("#emailSuccess").addClass("alert-success");
+                $("#emailSuccess").removeClass("invisible")
+                    .text("Fine")
+                    .removeClass("alert-danger")
+                    .addClass("alert-success");
             }
             if(data == "Nope" || data == "Taken")
             {
-                $("#emailSuccess").removeClass("invisible");
-                $("#emailSuccess").text(data == "Nope" ? "Nope" : "This email is taken");
-                $("#emailSuccess").removeClass("alert-success");
-                $("#emailSuccess").addClass("alert-danger");
+                $("#emailSuccess").removeClass("invisible")
+                    .text(data == "Nope" ? "Nope" : "This email is taken")
+                    .removeClass("alert-success")
+                    .addClass("alert-danger");
             }
         })
     }

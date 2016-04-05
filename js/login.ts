@@ -1,6 +1,8 @@
 /**
  * Created by Monyk on 22.03.2016.
+
  */
+/// <reference path="jquery.d.ts"/>
 
 $("#signinbutton").click(function()
 {
@@ -8,7 +10,7 @@ $("#signinbutton").click(function()
     {
         email: $("#emailField").val(),
         password: $("#passwordField").val()
-    },function(data:string)
+    },function(data : string)
         {
             if(data == "Fine")
             {

@@ -50,9 +50,10 @@ body
 
 #menu-button
 {
+    float : left;
     height : 100%;
     width: 50px;
-    padding: 12px 30px;
+    padding: 12px 15px;
 }
 
 nav
@@ -195,7 +196,7 @@ nav li:hover
     text-align: center;
     width: 392px;
     margin: 150px auto;
-    box-shadow: 0px 1px 2px 1px;
+    box-shadow: 0 1px 2px 1px;
     box-sizing: border-box;
 }
 
@@ -248,4 +249,89 @@ nav li:hover
 {
     margin: 5px;
     float:right;
+}
+
+#color-picker-button
+{
+    margin: 0 auto;
+    width: 35px;
+    font-size: 24px;
+    padding: 12px 15px;
+    position: relative;
+}
+
+#color-picker
+{
+   // opacity: 0;
+    top: 40px;
+    left: -44px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    -webkit-transition: visibility 0s ease .218s,opacity .218s linear;
+    transition: visibility 0s ease .218s,opacity .218s linear;
+    padding: 5px 7px 3px;
+    position: absolute;
+    width: 136px;
+    background-color: white;
+    z-index: 10000;
+    display: none;
+    //visibility: hidden;
+}
+
+#color-picker div
+{
+    float: left;
+    border: rgb(224,224,224) solid 1px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    height: 26px;
+    width: 26px;
+    margin: 2px;
+    transition: border linear .218s;
+}
+
+#color-picker div:hover
+{
+    border: black solid 1px;
+}
+
+.red
+{
+    background-color: #FF8A80;
+}
+
+.blue
+{
+    background-color: #80D8FF;
+}
+
+.orange
+{
+    background-color: #FFD180;
+}
+
+.white
+{
+    background-color: #e8e8e8;
+}
+
+.grey
+{
+    background-color: #CFD8DC;
+}
+
+.teal
+{
+    background-color: #A7FFEB;
+}
+
+.green
+{
+    background-color:#CCFF90;
+}
+
+.yellow
+{
+    background-color: #FFFF8D;
 }
