@@ -8,6 +8,13 @@
 
 class Controller_Register extends Controller
 {
+    function __construct()
+    {
+        $this->view = new View();
+        include './application/models/model_users.php';
+        $this->model = new Model_Users();
+    }
+
     function action_index()
     {
         $this->view->generate('register_content.php','template_view.php');
@@ -45,6 +52,8 @@ class Controller_Register extends Controller
 
     function action_newUser()
     {
-        echo $this->model->newUser($_POST['email'],$_POST['password']);
+        echo $this->model->newUser($_POST['email'],md5($_POST['password']));
     }
+
+
 }

@@ -3,6 +3,7 @@
  */
 
 /// <reference path="jquery.d.ts"/>
+/// <reference path="jqueryui.d.ts"/>
 
 $("#emailField").keyup
 (

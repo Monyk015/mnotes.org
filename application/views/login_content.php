@@ -9,6 +9,6 @@
     <button type="submit" id="signinbutton" data-loading-text="Loading..." class="btn btn-primary signbutton" autocomplete="off">
         done.
     </button>
-    <div>Don't have account yet? <a href="/?page=register">Sign up.</a></div>
+    <div>Don't have account yet? <a href="/register/">Sign up.</a></div>
 </form>
 <script src="/js/login.js"></script>

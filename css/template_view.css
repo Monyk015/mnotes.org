@@ -296,6 +296,15 @@ nav li:hover
     border: black solid 1px;
 }
 
+#color-picker div .glyphicon
+{
+    font-size: 15px;
+    height: 26px;
+    width: 26px;
+    padding: 4px 4px;
+}
+
+
 .red
 {
     background-color: #FF8A80;
@@ -313,7 +322,7 @@ nav li:hover
 
 .white
 {
-    background-color: #e8e8e8;
+    background-color: #ffffff;
 }
 
 .grey

@@ -1,16 +1,38 @@
-/**
- * Created by Monyk on 19.03.2016.
- */
-
 /// <reference path="jquery.d.ts"/>
+/// <reference path="jqueryui.d.ts"/>
 
-function newNote():void
+class G
+{
+    static currentColor:string = "white";
+    static toRemove:Array<number> = [];
+    static present:Array<note> = present;
+}
+
+interface note
+{
+    id : number;
+    label? : string;
+    text : string;
+    color : string;
+}
+
+function changeColor(color : string)
+{
+    $("#color-picker ." + G.currentColor).html("");
+    $("#newnote").removeClass(G.currentColor);
+    G.currentColor = color;
+    $("#color-picker ." + G.currentColor).html('<span class="glyphicon glyphicon-ok"></span>');
+    $("#newnote").addClass(G.currentColor);
+}
+
+function newNoteEventListener():void
 {
     $("#notename, #notemenu").show();
     $("body, #done").mousedown(function (e)
     {
-        var target = $(e.target);
-        if (target.is('#newnote') || target.parents('#newnote').length && !target.is('#done'))
+        let target = $(e.target);
+        if (target.is('#newnote') || target.parents('#newnote').length && !target.is('#done')
+            || target.is('#color-picker') || target.parents('#color-picker').length)
             return;
 
         $("body, #done").unbind('mousedown', arguments.callee)
@@ -21,23 +43,156 @@ function newNote():void
         if(!$("#notetextwr").text())
             return;
 
-        if (present[present.length - 1] != undefined)
-            var id = +present[present.length - 1]['id'] + 1;
-        else
-            var id = 1;
+        let id = 1;
 
-        var note = {
+        if (G.present[G.present.length - 1] != undefined)
+        {
+            id = +G.present[G.present.length - 1]['id'] + 1;
+        }
+
+
+        let note:note = {
             'label': $("#notenamewr").text(),
             'text': $("#notetextwr").text(),
-            'id': id
+            'id': id,
+            'color':G.currentColor
         };
+
+        G.present.push(note);
+
         $("#notenamewr").text("");
         $("#notetextwr").text("");
-        addNote(note);
+        newNote(note);
+
+        changeColor("white");
     });
 }
 
-var toRemove:Array<number> = [];
+
+function newNote(note : note)
+{
+    displayNote(note);
+    present.push(note);
+    $.post("/main/newNote", note, function (data)
+    {
+        if (data == "Fine")
+            return;
+        else
+            alert("Error adding new note");
+    })
+}
+
+function displayNote(note : note)
+{
+    let id = note['id'];
+    $("#notes").append('<li class="panel panel-default" id = "' + id + '"> <div class="notetext panel-body"></div>' +
+        '<div class="noteIcons">' +
+        '<div class="remove-button"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></div>' +
+        '</div> </li>');
+    $("#" + id).addClass(note.color);
+    $("#" + id + " .panel-body").text(note["text"]);
+    $("#" + id + " .remove-button").click(function ()
+    {
+        toRemove.push(+$(this).parent().parent()[0].id);
+        $(this).parent().parent().remove();
+    });
+
+    if (note['label'] != '')
+    {
+        $("#" + id).prepend('<div class="notelabel">' + note['label'] + '</div>');
+    }
+
+
+}
+
+function RemoveAllThatHaveToBe(notes:Array<number>)
+{
+    if (notes.length > 0)
+    {
+        $.post("main/removeNotes", {ids: notes}, function (data)
+        {
+            if (data == "Nope")
+                alert("Error deleting");
+        });
+    }
+}
+
+function update()
+{
+    $.post("main/update", {present : present}, function(data)
+    {
+        if(data == "Nope")
+            alert("Error updating");
+    })
+}
+
+function editNote():void
+{
+    $("#newnote").off("click");
+    $("#notes li").off("click", editNote);
+
+    let id : number = +$(this)[0].id;
+    let index : number = present.findIndex(x => x['id'] == id);
+    let note : note = present[index];
+
+    $(this).css("visibility","hidden");
+    $("#notename, #notemenu").show();
+
+    $("#notenamewr").text(note.label);
+    $("#notetextwr").text(note.text);
+    changeColor(note.color);
+    $("#notetextwr").trigger("input");
+    $("#notenamewr").trigger("input");
+
+
+    $("body, #done").mousedown(function (e)
+    {
+        let target = $(e.target);
+        if (target.is('#newnote') || (target.parents('#newnote').length && !target.is('#done'))
+            || target.is('#color-picker') || target.parents('#color-picker').length)
+            return;
+
+        $("body, #done").unbind('mousedown', arguments.callee);
+
+        $("#notename, #notemenu").hide();
+        $("#plh1, #plh2").show();
+
+        if(!$("#notetextwr").text())
+            return;
+
+        $('#'+id).removeClass(note.color);
+
+        note.text = $("#notetextwr").text();
+        note.label = $("#notenamewr").text();
+        note.color = G.currentColor;
+
+        $('#'+id+" .notelabel").text(note.label);
+        $('#'+id+" .notetext").text(note.text);
+        $('#'+id).addClass(note.color);
+        if (note['label'] != '' && !$("#" + id + " .notelabel").length)
+        {
+            $("#" + id).prepend('<div class="notelabel">' + note['label'] + '</div>');
+        }
+        if(note['label'] == '')
+        {
+            $("#" + id + " .notelabel").remove();
+        }
+
+
+        $('#'+id).css("visibility","visible");
+
+        $("#newnote").on("click", newNoteEventListener);
+        $("#notes").on("click", "li", editNote);
+
+        $("#notenamewr").text("");
+        $("#notetextwr").text("");
+
+        changeColor("white");
+
+        update();
+    });
+}
+
 $(document).ready(function ()
 {
     $("#notes").sortable(
@@ -54,26 +209,23 @@ $(document).ready(function ()
     $("#note-creator input").resizable();
     $("#menu-button").click(function ()
     {
-        $("nav").toggle("slide", 200);
+        $("nav").toggle("slide", "200");
         setTimeout(function ()
         {
             $(document).mousedown(function (e)
             {
-                var target = $(e.target);
+                let target = $(e.target);
                 if (target.is('nav') || target.parents('nav').length
                     || target.is('#menu-button') || target.parents('#menu-button').length)
                     return;
                 $(document).unbind("mousedown", arguments.callee);
-                $("nav").hide("slide", 200);
+                $("nav").hide("slide", "200");
             });
         }, 1);
     });
 
     //NEWNOTE MODULE
-
-
-
-    $("#newnote").on("click",newNote);
+    $("#newnote").on("click",newNoteEventListener);
 
     $("#notetextwr").on("input", function ()
     {
@@ -105,7 +257,7 @@ $(document).ready(function ()
 
     //DISPLAYNOTES
 
-    for (var i = 0; i < present.length; i++)
+    for (let i = 0; i < present.length; i++)
     {
         displayNote(present[i]);
     }
@@ -117,110 +269,25 @@ $(document).ready(function ()
     $("#color-picker, #color-picker-button").on("mouseover", function()
     {
         $("#color-picker").show();
-        //$("#color-picker").css("opacity","1");
-        //$("#color-picker").css("visibility","visibile");
+        $("#color-picker").css("opacity","1");
+        $("#color-picker").css("visibility","visibile");
+        setTimeout(hideColorPickerOnMouseLeave, 1000);
     });
 
-    $("#color-picker, #color-picker-button").on("mouseleave", function()
+    function hideColorPickerOnMouseLeave()
     {
-        $("#color-picker").hide();
-        //$("#color-picker").css("opacity","0");
-        //$("#color-picker").css("visibility","hidden");
-    });
-})
-
-function addNote(note:Object)
-{
-    displayNote(note);
-    present.push(note);
-    $.post("/main/addNote", note, function (data)
-    {
-        if (data == "Fine")
-            return;
-        else
-            alert("Error adding new note");
-    })
-}
-
-function displayNote(note:Object)
-{
-    var id = note['id'];
-    $("#notes").append('<li class="panel panel-default" id = "' + id + '"> <div class="notetext panel-body"></div>' +
-        '<div class="noteIcons">' +
-        '<div class="remove-button"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></div>' +
-        '</div> </li>');
-
-    $("#" + id + " .panel-body").text(note["text"]);
-    $("#" + id + " .remove-button").click(function ()
-    {
-        toRemove.push($(this).parent().parent()[0].id);
-        $(this).parent().parent().remove();
-        RemoveAllThatHaveToBe(toRemove);
-    });
-
-    if (note['label'] != '')
-    {
-        $("#" + id).prepend('<div class="notelabel">' + note['label'] + '</div>');
-    }
-
-
-}
-
-function RemoveAllThatHaveToBe(notes:Array<number>)
-{
-    if (notes.length > 0)
-    {
-        $.post("main/removeNotes", {ids: notes}, function (data)
+        $("#color-picker, #color-picker-button").on("mouseleave", function ()
         {
-            if (data == "Nope")
-                alert("Error deleting");
+            $("#color-picker").hide();
+            //$("#color-picker").css("opacity","0");
+            //$("#color-picker").css("visibility","hidden");
         });
     }
-}
 
+    hideColorPickerOnMouseLeave();
 
-function editNote()
-{
-    $("#newnote").off("click");
-    $("#notes li").off("click", editNote);
-    var id = $(this)[0].id;
-    $(this).css("visibility","hidden");
-    $("#notename, #notemenu").show();
-
-    $("#notenamewr").text($("#" + id +  " .notelabel").text());
-    $("#notetextwr").text($("#" + id +  " .notetext").text());
-    $("#notetextwr").trigger("input");
-    $("#notenamewr").trigger("input");
-
-    $("body, #done").mousedown(function (e)
+    $("#color-picker").on("click", "div", function()
     {
-        var target = $(e.target);
-        if (target.is('#newnote') || target.parents('#newnote').length && !target.is('#done'))
-            return;
-
-        $("body, #done").unbind('mousedown', arguments.callee);
-
-        $("#notename, #notemenu").hide();
-        $("#plh1, #plh2").show();
-
-        if(!$("#notetextwr").text())
-            return;
-
-        var index = present.findIndex(x => x['id'] == id);
-
-        present[index]['text'] = $("#notetextwr").text();
-        present[index]['label'] = $("#notenamewr").text();
-
-        $('#'+id+" .notelabel").text(present[index]['label']);
-        $('#'+id+" .notetext").text(present[index]['text']);
-
-        $('#'+id).css("visibility","visible");
-
-        $("#newnote").on("click", newNote);
-        $("#notes li").on("click", editNote);
-
-        $("#notenamewr").text("");
-        $("#notetextwr").text("");
-
+        changeColor($(this).attr('class'));
     });
-}
+})

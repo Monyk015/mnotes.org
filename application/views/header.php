@@ -5,7 +5,7 @@
     <div id="color-picker-button">
         <span class="glyphicon glyphicon-tint noselect" aria-hidden="true"></span>
         <div id="color-picker">
-            <div class="white"></div>
+            <div class="white"><span class="glyphicon glyphicon-ok"></span></div>
             <div class="grey"></div>
             <div class="green"></div>
             <div class="red"></div>

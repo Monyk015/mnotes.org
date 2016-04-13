@@ -8,6 +8,14 @@
 
 class Controller_Login extends Controller
 {
+
+    function __construct()
+    {
+        $this->view = new View();
+        include 'application/models/model_users.php';
+        $this->model = new Model_Users();
+    }
+    
     function action_index()
     {
 
@@ -17,7 +25,7 @@ class Controller_Login extends Controller
 
     function action_isAuthorizationCorrect()
     {
-        $res = $this->model->isAuthorizationCorrect($_POST['email'],$_POST['password']);
+        $res = $this->model->isAuthorizationCorrect($_POST['email'],md5($_POST['password']));
         echo $res;
         if($res == "Fine")
         {
