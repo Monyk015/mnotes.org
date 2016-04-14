@@ -1,40 +1,43 @@
+
 *{
-    padding:0;
-    margin:0;
-    border:0;
-    cursor:default;
-    box-sizing: border-box;
-    font-family: 'Roboto','Droid Sans',arial,sans-serif;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    cursor: default;
+    font-family: 'Roboto', 'Droid Sans', arial, sans-serif;
 }
-:focus{
+
+:focus
+{
     outline: none;
     border: none;
 }
+
 html
 {
     height: 100%;
 }
 
-.noselect {
+.noselect
+{
     -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none;   /* Chrome/Safari/Opera */
-    -khtml-user-select: none;    /* Konqueror */
-    -moz-user-select: none;      /* Firefox */
-    -ms-user-select: none;       /* IE/Edge */
-    user-select: none;           /* non-prefixed version, currently
-                                  not supported by any browser */
+    -webkit-user-select: none; /* Chrome/Safari/Opera */
+    -khtml-user-select: none; /* Konqueror */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE/Edge */
+    user-select: none;
+    /* non-prefixed version, currently
+                           not supported by any browser */
 }
 
 body
 {
     background: #e8e8e8;
-    height: 93%;
 }
 
 .b
 {
     font-weight: bold;
-
 }
 
 .header
@@ -50,41 +53,41 @@ body
 
 #menu-button
 {
-    float : left;
-    height : 100%;
+    float: left;
+    height: 100%;
     width: 50px;
     padding: 12px 15px;
 }
 
 nav
 {
-    display:none;
+    display: none;
     position: absolute;
     width: 250px;
     background: white;
     height: 100%;
 }
 
-
 nav li:hover
 {
     background: #e8e8e8;
 }
 
-#content ul
+#notes
 {
     list-style-type: none;
-    margin: 0;
+    margin: 0 auto;
     padding: 0;
-}
-
-#content ul li
-{
-    width: 300px;
-    margin: 20px;
     float: left;
 }
 
+.note
+{
+    width: 315px;
+    margin: 0;
+    float: left;
+    border-radius: 2px;
+}
 
 #newnote
 {
@@ -92,6 +95,7 @@ nav li:hover
     margin: 32px auto 16px auto;
     width: 600px;
 }
+
 #notename
 {
     position: relative;
@@ -101,6 +105,7 @@ nav li:hover
     overflow-x: hidden;
     overflow-y: auto;
 }
+
 #plh1
 {
     top: 0;
@@ -114,6 +119,7 @@ nav li:hover
     line-height: 23px;
     font-weight: bold;
 }
+
 #notenamewr
 {
     position: relative;
@@ -129,6 +135,7 @@ nav li:hover
     -webkit-user-modify: read-write;
     -webkit-line-break: after-white-space;
 }
+
 #notetext
 {
     position: relative;
@@ -137,6 +144,7 @@ nav li:hover
     overflow-x: hidden;
     overflow-y: auto;
 }
+
 #plh2
 {
     top: 0;
@@ -149,45 +157,69 @@ nav li:hover
     font-size: 15px;
     line-height: 19px;;
 }
+
 #notetextwr
 {
-    position:relative;
-    min-height:46px;
-    padding:15px 15px 12px 15px;
-    font-size:15px;
-    width:100%;
-    line-height:19px;
-    overflow:visible;
+    position: relative;
+    min-height: 46px;
+    padding: 15px 15px 12px 15px;
+    font-size: 15px;
+    width: 100%;
+    line-height: 19px;
+    overflow: visible;
     white-space: pre-wrap;
     word-wrap: break-word;
     -webkit-user-modify: read-write;
     -webkit-line-break: after-white-space;
 }
+
 #notemenu
 {
-    position:relative;
-    display:none;
-    width:100%;
-    height:45px;
+    position: relative;
+    display: none;
+    width: 100%;
+    height: 45px;
 }
+
 .notebar
 {
-    float:left;
-    font-size:12px;
-    line-height:33px;
-    height:45px;
-    width:45px;
-    text-align:center;
-    color:#555555;
+    float: left;
+    font-size: 12px;
+    line-height: 33px;
+    height: 45px;
+    width: 45px;
+    text-align: center;
+    color: #555555;
 }
+
 #done
 {
-    float:right;
+    float: right;
     margin-right: 10px;
 }
 
-#notetextwr:hover, #notenamewr:hover{
-    cursor:text;
+#notetextwr:hover, #notenamewr:hover
+{
+    cursor: text;
+}
+
+
+.ui-selectable-helper
+{
+    background: #9a9a9a;
+    border: 1px solid #6f6f6f;
+    opacity: .3;
+    position: absolute;
+}
+
+.ui-selecting
+{
+    box-shadow: 0 0 0 4px #6f6f6f;
+}
+
+.ui-selected
+{
+    box-shadow: 0 0 0 4px #6f6f6f;
 }
 
 .signgroup
@@ -221,7 +253,6 @@ nav li:hover
     height: 400px;
 }
 
-
 .invisible
 {
     visibility: hidden;
@@ -248,39 +279,48 @@ nav li:hover
 .noteIcons
 {
     margin: 5px;
-    float:right;
+    float: right;
+}
+
+#button-group
+{
+    margin: 0 auto;
+    width: 110px;
+    font-size: 24px;
+    position: relative;
+}
+
+#button-group>div
+{
+    float:left;
+    margin: 0 5px;
+    padding: 12px 10px;
 }
 
 #color-picker-button
 {
-    margin: 0 auto;
-    width: 35px;
-    font-size: 24px;
-    padding: 12px 15px;
-    position: relative;
 }
+
 
 #color-picker
 {
-   // opacity: 0;
     top: 40px;
     left: -44px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
-    -webkit-transition: visibility 0s ease .218s,opacity .218s linear;
-    transition: visibility 0s ease .218s,opacity .218s linear;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    -webkit-transition: visibility 0s ease .218s, opacity .218s linear;
+    transition: visibility 0s ease .218s, opacity .218s linear;
     padding: 5px 7px 3px;
     position: absolute;
     width: 136px;
     background-color: white;
     z-index: 10000;
     display: none;
-    //visibility: hidden;
 }
 
 #color-picker div
 {
     float: left;
-    border: rgb(224,224,224) solid 1px;
+    border: rgb(224, 224, 224) solid 1px;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     -webkit-border-radius: 50%;
@@ -303,7 +343,6 @@ nav li:hover
     width: 26px;
     padding: 4px 4px;
 }
-
 
 .red
 {
@@ -337,7 +376,7 @@ nav li:hover
 
 .green
 {
-    background-color:#CCFF90;
+    background-color: #CCFF90;
 }
 
 .yellow

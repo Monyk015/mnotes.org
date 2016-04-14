@@ -17,7 +17,7 @@ class Model_Notes extends Model
         return $ret;
     }
 
-    function addNote($email, $id, $label = null, $text, $color)
+    function newNote($email, $id, $label = null, $text, $color)
     {
         $id = intval($id);
         if ($this->mysqli->query("INSERT INTO `notes`(`id`,`email`,`text`,`label`, `color`)

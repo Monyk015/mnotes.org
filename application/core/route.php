@@ -25,10 +25,7 @@ class Route
         {
             $action = 'Action_'.$url[2];
         }
-
-        if($_SESSION['email'] == null && $controller_name == 'Controller_Main')
-            $controller_name = 'Controller_Login';
-
+        
         $controller_file = strtolower($controller_name.'.php');
         $controller_path = 'application/controllers/'.$controller_file;
 

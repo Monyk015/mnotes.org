@@ -11,7 +11,7 @@
         </div>
 
 
-        <ul class="list-group noselect" id="notes">
+        <ul id="notes">
         </ul>
     
 </div>
