@@ -13,12 +13,15 @@ class Model_Notes extends Model
         $res = $this->mysqli->query("SELECT `id`, `text`, `label`, `color` FROM `notes` WHERE `email` = '$email'");
         $ret = [];
         while ($row = $res->fetch_assoc())
-            $ret[] = $row;
+            $ret[$row['id']] = $row;
+        $order = $this->mysqli->query("SELECT `order` FROM `orders` WHERE `email` = '$email'");
+        $ret['order'] = $order->fetch_assoc()['order'];
         return $ret;
     }
 
     function newNote($email, $id, $label = null, $text, $color)
     {
+        $text = $text;
         $id = intval($id);
         if ($this->mysqli->query("INSERT INTO `notes`(`id`,`email`,`text`,`label`, `color`)
                                   VALUES ('$id','$email', '$text', '$label', '$color')"))
@@ -45,6 +48,14 @@ class Model_Notes extends Model
         $color = $note['color'];
         if(!$this->mysqli->query("UPDATE `notes` SET `text` = '$text', `label` = '$label', `color` = '$color'
                                   WHERE `id` = '$id' AND `email` = '$email'"))
+            $res = "Nope";
+        return $res;
+    }
+
+    public function updateOrder($order, $email)
+    {
+        $res = "Fine";
+        if (!$this->mysqli->query("UPDATE `orders` SET `order` = '$order' WHERE `email` = '$email'"))
             $res = "Nope";
         return $res;
     }

@@ -13,14 +13,6 @@
       <link href="/css/template_view.css" rel="stylesheet">
   </head>
   <body>
-    <?php include 'header.php'; ?>
-    <nav>
-        <ul class="nav nav-pills nav-stacked noselect">
-            <li role="presentation" class="active"><a href="#">Home</a></li>
-            <li role="presentation"><a href="#">Profile</a></li>
-            <li role="presentation"><a id="signoutbutton" href="#">Sign Out</a></li>
-        </ul>
-    </nav>
     <?php include 'application/views/'.$content_view; ?>
     <!-- javascript calls-->
   </body>

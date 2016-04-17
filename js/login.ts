@@ -18,7 +18,7 @@ $("#signinbutton").click(function()
                 window.location.replace("/main");
             }
             else
-                alert("Authorization error");
+                alert("Invalid login or password");
         }
     )
 }

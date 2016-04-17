@@ -12,7 +12,8 @@ class Model_Users extends Model
     function newUser($email, $password)
     {
         $userTableResult = $this->mysqli->query("INSERT INTO `users` (`email`,`password`) VALUES('$email','$password')") ;
-        if($userTableResult)
+        $ordersTableResult = $this->mysqli->query("INSERT INTO `orders`(`email`) VALUES('$email')");
+        if ($userTableResult && $ordersTableResult)
             return "Fine";
         else
             return "Shit";
