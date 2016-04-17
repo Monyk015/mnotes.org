@@ -384,3 +384,52 @@ nav li:hover
 {
     background-color: #FFFF8D;
 }
+
+#tagsNavHeader
+{
+    height: 25px;
+    margin: 5px;
+    font-size: 15px;
+}
+
+#tagsNav li
+{
+    height: 35px;
+    padding: 7px;
+}
+
+.navTag .glyphicon-remove, .navTag .glyphicon-pencil
+{
+    margin: 2px;
+    float: right;
+    color: #8c8c8c;
+}
+
+.navTag .glyphicon-remove:hover, .navTag .glyphicon-pencil:hover
+{
+    color: #000000;
+}
+
+#tagsCreator
+{
+    border-bottom: solid #b1b1b1 1px;
+}
+
+#tagsCreator input
+{
+    height: 35px;
+    width: 80%;
+    margin-left: 3px;
+}
+
+#tagsCreator .glyphicon-ok
+{
+    margin: 7px;
+    float: right;
+    color: #8c8c8c;
+}
+
+#tagsCreator .glyphicon-ok:hover
+{
+    color: black;
+}
