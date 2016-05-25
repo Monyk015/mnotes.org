@@ -14,12 +14,13 @@ class Controller_Main extends Controller
             if(!$_SESSION['email'])
                 header('Location: http://mnotes.org/login');
             $data = $this->model->getNotes($_SESSION['email']);
+        $data['tags'] = $this->model->getTags($_SESSION['email']);
             $this->view->generate('main_content.php', 'template_view.php', $data);
     }
 
     function action_newNote()
     {
-        echo $this->model->newNote($_SESSION['email'],$_POST['id'],$_POST['label'],$_POST['text'], $_POST['color']);
+        echo $this->model->newNote($_SESSION['email'], $_POST['id'], $_POST['label'], $_POST['text'], $_POST['color'], $_POST['tags']);
     }
 
     function action_signOut()
@@ -46,4 +47,19 @@ class Controller_Main extends Controller
             echo "Nope";
     }
 
+    function action_newTag()
+    {
+        if ($this->model->newTag($_GET['tagName'], $_SESSION['email'], $_GET['tagId']) != "Fine")
+        {
+            echo "Nope";
+        }
+    }
+
+    function action_removeTag()
+    {
+        if ($this->model->removeTag($_GET['tagId'], $_SESSION['email']) != "Fine")
+        {
+            echo "Nope";
+        }
+    }
 }

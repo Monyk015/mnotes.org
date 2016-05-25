@@ -10,21 +10,28 @@ class Model_Notes extends Model
 
     function getNotes($email)
     {
-        $res = $this->mysqli->query("SELECT `id`, `text`, `label`, `color` FROM `notes` WHERE `email` = '$email'");
+        $res = $this->mysqli->query("SELECT `id`, `text`, `label`, `color`,`tags` FROM `notes` WHERE `email` = '$email'");
         $ret = [];
         while ($row = $res->fetch_assoc())
+        {
             $ret[$row['id']] = $row;
+            $ret[$row['id']]['tags'] = $ret[$row['id']]['tags'] == null ? null : array_map('intval', explode(',', $ret[$row['id']]['tags']));
+        }
         $order = $this->mysqli->query("SELECT `order` FROM `orders` WHERE `email` = '$email'");
         $ret['order'] = $order->fetch_assoc()['order'];
         return $ret;
     }
 
-    function newNote($email, $id, $label = null, $text, $color)
+    function newNote($email, $id, $label = null, $text, $color, $tags = null)
     {
         $text = $text;
         $id = intval($id);
-        if ($this->mysqli->query("INSERT INTO `notes`(`id`,`email`,`text`,`label`, `color`)
-                                  VALUES ('$id','$email', '$text', '$label', '$color')"))
+        $tags = $tags == null ? null : implode(',', $tags);
+        if ($this->mysqli->query(
+            "INSERT INTO `notes`(`id`,`email`,`text`,`label`, `color`, `tags`)
+                                  VALUES ('$id','$email', '$text', '$label', '$color', '$tags')"
+        )
+        )
             return "Fine";
         else
             return "Shit";
@@ -45,8 +52,10 @@ class Model_Notes extends Model
         $id = $note['id'];
         $text = $note['text'];
         $label = $note['label']? : null;
+        $tags = implode(',', $note['tags']);
         $color = $note['color'];
-        if(!$this->mysqli->query("UPDATE `notes` SET `text` = '$text', `label` = '$label', `color` = '$color'
+        if (!$this->mysqli->query(
+            "UPDATE `notes` SET `text` = '$text', `label` = '$label', `color` = '$color',`tags` = '$tags'
                                   WHERE `id` = '$id' AND `email` = '$email'"))
             $res = "Nope";
         return $res;
@@ -56,6 +65,33 @@ class Model_Notes extends Model
     {
         $res = "Fine";
         if (!$this->mysqli->query("UPDATE `orders` SET `order` = '$order' WHERE `email` = '$email'"))
+            $res = "Nope";
+        return $res;
+    }
+
+
+    function getTags($email)
+    {
+        $res = $this->mysqli->query("SELECT `tagName`,`tagId` FROM `tags` WHERE `email` = '$email'");
+        while ($row = $res->fetch_assoc())
+            $ret[$row['tagId']] = $row['tagName'];
+        return $ret;
+    }
+
+    function newTag($tagName, $email, $tagId)
+    {
+        $res = "Fine";
+        if (!$this->mysqli->query("INSERT INTO `tags` (`email`, `tagName`, `tagId`) VALUES ('$email','$tagName','$tagId')"))
+        {
+            $res = "Nope";
+        }
+        return $res;
+    }
+
+    function removeTag($tagId, $email)
+    {
+        $res = "Fine";
+        if (!$this->mysqli->query("DELETE FROM `tags` WHERE `email` = '$email' AND `tagId` = '$tagId'"))
             $res = "Nope";
         return $res;
     }

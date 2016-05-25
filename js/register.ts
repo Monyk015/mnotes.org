@@ -7,8 +7,8 @@
 
 class G
 {
-    static passwordPattern:string = "(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[a-zа-я]).*$";
-    static emailPattern:string = "^[A-Za-z0-9-_]+@[A-Za-z0-9]+\.[a-z]{2,4}$";
+    static passwordPattern:string = "(?=^.{8,}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[a-zа-я]).*$";
+    static emailPattern:string = "^[A-Za-z0-9-_]+@[A-Za-z0-9]+\\.[a-z]{2,4}$";
 }
 
 $("#emailField").keyup(isEmailFine);
