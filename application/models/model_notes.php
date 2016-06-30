@@ -12,7 +12,7 @@ class Model_Notes extends Model
     {
         $res = $this->mysqli->query("SELECT `id`, `text`, `label`, `color`,`tags` FROM `notes` WHERE `email` = '$email'");
         $ret = [];
-        while ($row = $res->fetch_assoc())
+        while ($res && $row = $res->fetch_assoc())
         {
             $ret[$row['id']] = $row;
             $ret[$row['id']]['tags'] = $ret[$row['id']]['tags'] == null ? null : array_map('intval', explode(',', $ret[$row['id']]['tags']));

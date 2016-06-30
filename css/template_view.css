@@ -85,7 +85,7 @@ nav li:hover
 .note
 {
     width: 315px;
-    margin: 3px;
+    margin: 0;
     float: left;
     border-radius: 2px;
 }

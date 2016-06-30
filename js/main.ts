@@ -530,7 +530,7 @@ function editNoteEventListener():void
 
 function tagsCreatorOkEventListener()
 {
-    Tags.newTag($("#tagsCreator input").val());
+    Tags.newTag($("#tagsCreator").find("input").val());
 }
 
 function colorPickerDivEventListener()
@@ -646,7 +646,7 @@ function displayAllowed(allowedTags:Object = null):void
             if (G.present[i] != null && G.present[i].tags)
             {
                 for (let j in G.present[i].tags)
-                    if (allowedTags[G.present[i].tags[j]] == true && G.present[i].tags[j] != 0)
+                    if (true == allowedTags[G.present[i].tags[j]] && G.present[i].tags[j] != 0)
                     {
                         $("#" + i).show();
                         break;
