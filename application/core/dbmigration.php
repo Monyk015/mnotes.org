@@ -10,7 +10,7 @@ function migrate()
     $config = dbConfig();
     $mysqli = new mysqli($config['connection'], $config['login'], $config['password'], $config['database']);
     if ($mysqli->connect_errno)
-        echo "Failed to connect to MySQL: (" . $this->mysqli->connect_errno . ") " . $this->mysqli->connect_error;
+        echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
     $mysqli->query('CREATE TABLE IF NOT EXISTS `notes` (
           `id` INT(11) NOT NULL,
           `text` TEXT NOT NULL,
@@ -56,7 +56,7 @@ function rollback()
     $config = dbConfig();
     $mysqli = new mysqli($config['connection'], $config['login'], $config['password'], $config['database']);
     if ($mysqli->connect_errno)
-        echo "Failed to connect to MySQL: (" . $this->mysqli->connect_errno . ") " . $this->mysqli->connect_error;
+        echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
     $mysqli->query('DROP TABLE IF EXISTS `notes`');
     $mysqli->query('DROP TABLE IF EXISTS `users`');
     $mysqli->query('DROP TABLE IF EXISTS `tags`');
