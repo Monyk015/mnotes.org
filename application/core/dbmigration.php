@@ -7,7 +7,8 @@
  */
 function migrate()
 {
-    $mysqli = new mysqli('mnotes.org', 'root', '', 'database');
+    $config = dbConfig();
+    $mysqli = new mysqli($config['connection'], $config['login'], $config['password'], $config['database']);
     if ($mysqli->connect_errno)
         echo "Failed to connect to MySQL: (" . $this->mysqli->connect_errno . ") " . $this->mysqli->connect_error;
     $mysqli->query('CREATE TABLE IF NOT EXISTS `notes` (
@@ -52,7 +53,8 @@ function migrate()
 
 function rollback()
 {
-    $mysqli = new mysqli('mnotes.org', 'root', '', 'database');
+    $config = dbConfig();
+    $mysqli = new mysqli($config['connection'], $config['login'], $config['password'], $config['database']);
     if ($mysqli->connect_errno)
         echo "Failed to connect to MySQL: (" . $this->mysqli->connect_errno . ") " . $this->mysqli->connect_error;
     $mysqli->query('DROP TABLE IF EXISTS `notes`');
